@@ -17,3 +17,7 @@ tmux: ctrl+a+}
 base64 -d ./new_bin
 ```
 
+## Local Debugging
+```
+ncat -vc ./pwn -kl 127.0.0.1 8888
+```
